@@ -8,6 +8,6 @@ namespace Console.Parser
 
         bool CanParse(Type type);
         
-        object Parse(string value, Type type);
+        object Parse(Type type, string value);
     }
 }

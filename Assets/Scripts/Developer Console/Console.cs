@@ -22,18 +22,16 @@ namespace Console
 
         void Update() 
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                ConsoleProcessor.InvokeCommand(inputField.text.Trim());
-                inputField.text = string.Empty;
-            }
-            
             if (Input.GetKeyDown(KeyCode.F))
             {
                 Debug.Log(consoleParser.parsers[0]);
             }
         }
 
-        
+        public void InvokeCommand()
+        {
+            ConsoleProcessor.InvokeCommand(inputField.text.Trim());
+            inputField.text = string.Empty;
+        }
     }
 }

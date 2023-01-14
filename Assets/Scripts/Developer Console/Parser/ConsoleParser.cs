@@ -51,15 +51,22 @@ namespace Console.Parser
             return null;
         }
 
-        public object Parse(string value, Type type)
+        public object Parse(Type type, string value)
         {
+            Debug.Log(type);
             IParser parser = GetParser(type);
             if (parser == null)
             {
                 throw new Exception();
             }
 
-            return parser.Parse(value, type);
+            return parser.Parse(type, value);
         }
+
+        public static object[] ParseParamData()
+        {
+            return new object[]{};
+        }
+
     }
 }

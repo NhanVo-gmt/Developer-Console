@@ -7,7 +7,7 @@ using UnityEngine;
 public static class DebugCommand
 {
     [Command]
-    private static void DebugLogCommand(string[] args)
+    private static void DebugLog(string[] args)
     {
         string logText = string.Join(' ', args);
         Debug.Log(logText);
@@ -16,7 +16,7 @@ public static class DebugCommand
     [Command]
     private static void DebugLogCommand(string a, string b) 
     {
-
+        Debug.Log(a + "has" + b);
     }
 }
 

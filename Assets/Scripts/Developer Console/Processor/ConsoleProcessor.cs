@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Console.Command;
+using Console.Parser;
+using Console.Preprocessor;
 using UnityEditor;
 using UnityEngine;
 using Utilities;
@@ -51,27 +54,55 @@ namespace Console.Processor
             {
                 if (methodInfo.GetCustomAttributes(typeof(CommandAttribute), false).Length > 0)
                 {
-                    CommandData commandData = CreateCommandData(methodInfo);
-                    string key = CreateCommandKey(commandData);
+                    CommandData commandData = ConsolePreprocessor.CreateCommandData(methodInfo);
+                    string key = ConsolePreprocessor.CreateCommandKey(commandData);
 
                     commandTable.TryAdd(key, commandData);
                 }
             }
         }
 
-        public static string CreateCommandKey(CommandData commandData)
+        
+    #endregion
+
+    
+    #region Invoke
+
+        private static ConsoleParser consoleParser = new ConsoleParser();
+    
+        public static void InvokeCommand(string commandString) 
         {
-            return $"{commandData.commandName}({commandData.paramCount})";
+            string[] commandParts = GetCommandParts(commandString);
+
+            string commandName = GetCommandName(commandParts);
+            string[] commandParams = GetCommandParams(commandParts, out int paramCount);
+
+            string commandKey = GetKey(commandName, paramCount);
+            if (commandTable.ContainsKey(commandKey))
+            {
+                CommandData command = commandTable[commandKey];
+                
+                object[] parsedParamData = ParseParamData(command.types, commandParams);
+
+                command.Invoke(parsedParamData);
+            }
         }
 
-        public static CommandData CreateCommandData(MethodInfo methodInfo)
+        private static object[] ParseParamData(Type[] types, string[] commandParams)
         {
-            return new CommandData(methodInfo);
+            object[] parsedParam =  new object[commandParams.Length];
+            for (int i = 0; i < parsedParam.Length; i++)
+            {
+                Debug.Log(types[i]);
+                parsedParam[i] = consoleParser.Parse(types[i], commandParams[i]);
+            }
+
+            return parsedParam;
         }
 
-        public static string[] GetCommandParts(string command) 
+        public static string[] GetCommandParts(string commandString) 
         {
-            return command.Split(" ");
+            return commandString.Split(" ").Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
         }
 
         public static string GetCommandName(string[] commandParts) 
@@ -85,27 +116,14 @@ namespace Console.Processor
             paramCount = commandParams.Length;
             return commandParams;
         }
-    #endregion
 
-    
-
-    #region Invoke
-        public static void InvokeCommand(string command) 
+        public static string GetKey(string commandName, int paramCount)
         {
-            string[] commandParts = command.Split(' ');
-
-            string commandName = commandParts[0];
-            if (commandTable.ContainsKey(commandName))
-            {
-                CommandData commandData = commandTable[commandName];
-            }
+            return $"{commandName}({paramCount})";
         }
 
-        
-        private static void InvokeMethod(MethodInfo methodInfo, ParameterInfo[] parameterInfos)
-        {
-            methodInfo.Invoke(null, parameterInfos);
-        }
     #endregion
+
+
     }
 }

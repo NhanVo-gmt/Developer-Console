@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -11,6 +12,7 @@ namespace Console.Command
         
         public readonly MethodInfo methodInfo;
         public readonly ParameterInfo[] paramInfos;
+        public readonly Type[] types;
         public readonly int paramCount;
         
 
@@ -21,6 +23,17 @@ namespace Console.Command
             commandName = methodInfo.Name;
             paramInfos = methodInfo.GetParameters();
             paramCount = paramInfos.Length;
+
+            types = new Type[paramCount];
+            for (int i = 0; i < paramCount; i++)
+            {
+                types[i] = paramInfos[i].ParameterType;
+            }
+        }
+
+        public void Invoke(object[] paramData)
+        {
+            methodInfo.Invoke(null, paramData);
         }
     }
 }
