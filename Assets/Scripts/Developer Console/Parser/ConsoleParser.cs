@@ -12,10 +12,12 @@ namespace Console.Parser
         public IParser[] parsers;
         private Dictionary<Type, IParser> parserLookup = new Dictionary<Type, IParser>();
         private HashSet<Type> unparserableLookup = new HashSet<Type>();
+        private readonly Func<Type, string, object> recursiveParser;
         
         public ConsoleParser(IEnumerable<IParser> parsers)
         {
             this.parsers = parsers.OrderByDescending(x => x.Priority).ToArray();
+            recursiveParser = Parse;
         }
 
         public ConsoleParser() : this(new InjectionLoader<IParser>().GetInjectedInstances())
@@ -59,13 +61,7 @@ namespace Console.Parser
                 throw new Exception();
             }
 
-            return parser.Parse(type, value);
+            return parser.Parse(type, value, recursiveParser);
         }
-
-        public static object[] ParseParamData()
-        {
-            return new object[]{};
-        }
-
     }
 }

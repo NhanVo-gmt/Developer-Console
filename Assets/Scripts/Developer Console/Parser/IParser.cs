@@ -8,6 +8,6 @@ namespace Console.Parser
 
         bool CanParse(Type type);
         
-        object Parse(Type type, string value);
+        object Parse(Type type, string value, Func<Type, string, object> recursiveParser);
     }
 }

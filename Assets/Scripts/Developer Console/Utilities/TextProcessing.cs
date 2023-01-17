@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Console.Containers;
 using UnityEngine; //todo
 
 namespace Utilities
@@ -61,6 +62,11 @@ namespace Utilities
         public static string ReduceScope(this string input) 
         {
             return input.ReduceScope(DefaultLeftScoper, DefaultRightScoper);
+        }
+
+        public static string ReduceScope(this string input, char leftScopers, char rightScopers)
+        {
+            return input.ReduceScope(leftScopers.AsArraySingle(), rightScopers.AsArraySingle());
         }
 
         public static string ReduceScope<T> (this string input, T leftScopers, T rightScopers, int maxReduction = 1) where T : IReadOnlyList<char>

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 namespace Console.Parser
 {
@@ -14,9 +15,17 @@ namespace Console.Parser
             return type.IsArray;
         }
 
-        public object Parse(Type type, string value)
+        public object Parse(Type type, string value, Func<Type, string, object> recursiveParser)
         {
-            return new object{};
+            Type elementType = type.GetElementType();
+            string[] valueParts = value.ReduceScope('[', ']').SplitScope(',');
+            
+            IList dataArray = Array.CreateInstance(elementType, valueParts.Length);
+            for (int i = 0; i < dataArray.Count; i++)
+            {
+                dataArray[i] = recursiveParser(elementType, valueParts[i]);
+            }
+            return dataArray;
         }
     }
 }

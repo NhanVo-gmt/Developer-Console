@@ -23,7 +23,7 @@ namespace Console.Parser
             return primitiveTypes.Contains(type);
         }
 
-        public object Parse(Type type, string value)
+        public object Parse(Type type, string value, Func<Type, string, object> recursiveParser)
         {
             try
             {
