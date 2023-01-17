@@ -7,7 +7,6 @@ using Console.Parser;
 using Console.Processor;
 using TMPro;
 using UnityEngine;
-using Utilites;
 using Utilities;
 
 namespace Console
