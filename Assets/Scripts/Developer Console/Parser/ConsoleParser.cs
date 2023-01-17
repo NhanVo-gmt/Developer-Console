@@ -53,7 +53,6 @@ namespace Console.Parser
 
         public object Parse(Type type, string value)
         {
-            Debug.Log(type);
             IParser parser = GetParser(type);
             if (parser == null)
             {

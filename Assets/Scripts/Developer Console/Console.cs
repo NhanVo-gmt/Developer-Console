@@ -8,6 +8,7 @@ using Console.Processor;
 using TMPro;
 using UnityEngine;
 using Utilites;
+using Utilities;
 
 namespace Console
 {
@@ -15,6 +16,7 @@ namespace Console
     {
         [SerializeField] TMP_InputField inputField;
         ConsoleParser consoleParser = new ConsoleParser();
+
         
         private void OnEnable() {
             ConsoleProcessor.GenerateCommandTable();
@@ -26,6 +28,25 @@ namespace Console
             {
                 Debug.Log(consoleParser.parsers[0]);
             }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                ReduceScope();
+            }
+        }
+
+        public void SplitScope()
+        {
+            string[] textSplit = TextProcessing.SplitScope(inputField.text.Trim(), ' ');
+            foreach(string text in textSplit)
+            {
+                Debug.Log(text);
+            }
+        }
+
+        public void ReduceScope()
+        {
+            Debug.Log(inputField.text.ReduceScope());
         }
 
         public void InvokeCommand()

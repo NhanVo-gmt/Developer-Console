@@ -72,6 +72,7 @@ namespace Console.Processor
     
         public static void InvokeCommand(string commandString) 
         {
+            commandString.SplitScope(' ');
             string[] commandParts = GetCommandParts(commandString);
 
             string commandName = GetCommandName(commandParts);
@@ -93,7 +94,6 @@ namespace Console.Processor
             object[] parsedParam =  new object[commandParams.Length];
             for (int i = 0; i < parsedParam.Length; i++)
             {
-                Debug.Log(types[i]);
                 parsedParam[i] = consoleParser.Parse(types[i], commandParams[i]);
             }
 
