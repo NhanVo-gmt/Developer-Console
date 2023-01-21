@@ -14,6 +14,8 @@ namespace Console.Command
         public readonly ParameterInfo[] paramInfos;
         public readonly Type[] types;
         public readonly int paramCount;
+
+        public readonly string searchInfo;
         
 
         public CommandData(MethodInfo methodInfo)
@@ -28,6 +30,12 @@ namespace Console.Command
             for (int i = 0; i < paramCount; i++)
             {
                 types[i] = paramInfos[i].ParameterType;
+            }
+
+            searchInfo = commandName;
+            for (int i = 0; i < paramCount; i++)
+            {
+                searchInfo += $" <{types[i].Name}>";
             }
         }
 

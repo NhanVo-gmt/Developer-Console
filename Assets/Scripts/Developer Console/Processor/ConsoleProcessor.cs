@@ -62,6 +62,13 @@ namespace Console.Processor
             }
         }
 
+        public static IEnumerable<CommandData> GetAllCommands()
+        {
+            foreach(CommandData commandData in commandTable.Values)
+            {
+                yield return commandData;
+            }
+        }
         
     #endregion
 

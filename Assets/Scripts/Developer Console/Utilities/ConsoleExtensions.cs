@@ -27,5 +27,10 @@ namespace Utilities
             Array.Copy(source, sourceIndex, result, 0, length);
             return result;
         }
+
+        public static bool ContainsWithoutCaseSensitive(this string parent, string child) 
+        {
+            return parent.ToUpper().Contains(child.ToUpper());
+        }
     }
 }
