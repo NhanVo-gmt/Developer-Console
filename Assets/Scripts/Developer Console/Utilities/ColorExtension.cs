@@ -15,5 +15,15 @@ namespace Utilities
             
             stringBuilder.Append($" <color={color}>{text}</color> ");
         }
+
+        public static string GetColoredText(string text, string color)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return string.Empty;
+            }
+            
+            return $" <color={color}>{text}</color> ";
+        }
     }
 }

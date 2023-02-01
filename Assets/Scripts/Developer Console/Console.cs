@@ -18,14 +18,12 @@ namespace Console
     {
         ConsoleParser consoleParser = new ConsoleParser();
 
-        ConsoleSuggestor consoleSuggestor = new ConsoleSuggestor();
+        SuggestionStack suggestionStack = new SuggestionStack();
         [SerializeField] TMP_InputField inputField;
         [SerializeField] GameObject popupGameObject;
         [SerializeField] TMP_Text popupText;
         string previousInput;
         string currentInput;
-
-        SuggestionStack suggestionStack = new SuggestionStack();
 
         
         private void OnEnable() {

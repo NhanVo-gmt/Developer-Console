@@ -31,17 +31,21 @@ namespace Console.Suggestor
 
         public string GetFormattedSuggestions(string incompleteInput)
         {
-            IEnumerable<ISuggestion> suggestions = GetSuggestions(incompleteInput);
+            List<ISuggestion> suggestions = GetSuggestions(incompleteInput).ToList();
 
             suggestionString.Clear();
-            foreach(ISuggestion suggestion in suggestions)
+            for (int i = 0; i < suggestions.Count; i++)
             {
-                suggestionString.Append(suggestion.PrimarySignature);
-                suggestionString.AppendColoredText(suggestion.SecondarySignature, ColorExtention.Grey);
+                suggestionString.Append($"<link={i}>");
+                suggestionString.Append($"{suggestions[i].PrimarySignature}");
+                suggestionString.AppendColoredText(suggestions[i].SecondarySignature, ColorExtention.Grey);
+                suggestionString.Append("</link>");
                 suggestionString.Append("\n");
             }
 
+
             return suggestionString.ToString();
         }
+
     }    
 }
