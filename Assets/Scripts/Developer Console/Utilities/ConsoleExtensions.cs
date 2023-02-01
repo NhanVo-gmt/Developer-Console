@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Utilities
 {
-    public static class CollectionExtensions
+    public static class ConsoleExtensions
     {
         public static Dictionary<TValue, TKey> Invert<TKey, TValue>(Dictionary<TKey, TValue> sourceDictionary)
         {
@@ -31,6 +31,22 @@ namespace Utilities
         public static bool ContainsWithoutCaseSensitive(this string parent, string child) 
         {
             return parent.ToUpper().Contains(child.ToUpper());
+        }
+
+        static readonly Dictionary<string, string> converTypeNameDictionary = new Dictionary<string, string>
+        {
+            {"Int32", "Int"},
+            {"Single", "Float"}
+        };
+
+        public static string ConvertTypeName(string systemName)
+        {
+            if (converTypeNameDictionary.ContainsKey(systemName))
+            {
+                return converTypeNameDictionary[systemName];
+            }
+
+            return systemName;
         }
     }
 }

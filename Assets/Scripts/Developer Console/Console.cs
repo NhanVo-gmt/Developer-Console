@@ -20,10 +20,12 @@ namespace Console
 
         ConsoleSuggestor consoleSuggestor = new ConsoleSuggestor();
         [SerializeField] TMP_InputField inputField;
+        [SerializeField] GameObject popupGameObject;
         [SerializeField] TMP_Text popupText;
         string previousInput;
         string currentInput;
 
+        SuggestionStack suggestionStack = new SuggestionStack();
 
         
         private void OnEnable() {
@@ -32,16 +34,6 @@ namespace Console
 
         void Update() 
         {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                Debug.Log(consoleParser.parsers[0]);
-            }
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                ReduceScope();
-            }
-
             ProcessInput();
         }
 
@@ -54,43 +46,44 @@ namespace Console
             {
                 OnInputChanged(currentInput);
             }
+            else if (string.IsNullOrWhiteSpace(currentInput))
+            {
+                ClearSuggestionDisplay();
+            }
         }
 
         void OnInputChanged(string input)
         {
-            UpdateSuggestionDisplay(input);
+            UpdateSuggestion(input);
         }
         
-        private void UpdateSuggestionDisplay(string input)
+        private void UpdateSuggestion(string input)
         {
-            StringBuilder commandText =  consoleSuggestor.GetFormattedCommands(input);
-            popupText.text = commandText.ToString();
+            UpdateSuggestionDisplay(suggestionStack.GetFormattedSuggestions(input));
+        }
+
+        private void UpdateSuggestionDisplay(string commandText)
+        {
+            popupGameObject.SetActive(true);
+            popupText.text = commandText;
         }
 
 
+        #region Button
 
-        //todo remove
-        public void SplitScope()
-        {
-            string[] textSplit = TextProcessing.SplitScope(inputField.text.Trim(), ' ');
-            foreach(string text in textSplit)
-            {
-                Debug.Log(text);
-            }
-        }
-
-        //todo remove
-        public void ReduceScope()
-        {
-            Debug.Log(inputField.text.ReduceScope());
-        }
-
-
-        //todo remove
         public void InvokeCommand()
         {
             ConsoleProcessor.InvokeCommand(inputField.text.Trim());
             inputField.text = string.Empty;
         }
+
+        public void ClearSuggestionDisplay()
+        {
+            popupGameObject.SetActive(false);
+            popupText.text = string.Empty;
+        }
+
+
+        #endregion
     }
 }

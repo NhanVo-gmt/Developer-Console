@@ -11,11 +11,5 @@ namespace Console.Extras
             string logText = string.Join(' ', args);
             Debug.Log(logText);
         }
-
-        [Command]
-        private static void DebugLogCommand(string a, string b) 
-        {
-            Debug.Log(a + "has" + b);
-        }
     }
 }

@@ -34,6 +34,10 @@ namespace Utilities
                 T instance = default;
                 bool success = false;
                 
+                if (type.IsGenericType)
+                {
+                    continue;
+                }
                 try
                 {
                     instance = (T)Activator.CreateInstance(type);

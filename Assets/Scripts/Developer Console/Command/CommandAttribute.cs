@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Console.Command
 {
-    [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Field | AttributeTargets.Property, Inherited = false, AllowMultiple = true)]
     public sealed class CommandAttribute : Attribute
     {
         public string name;

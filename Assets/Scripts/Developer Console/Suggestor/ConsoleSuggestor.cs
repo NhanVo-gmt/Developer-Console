@@ -32,13 +32,14 @@ namespace Console.Suggestor
 
         public StringBuilder GetFormattedCommands(string incompleteInput)
         {
-            suggestorList = GetCommands(incompleteInput).OrderBy(x => x.commandName).ToList();
+            suggestorList = GetCommands(incompleteInput).OrderBy(x => x.commandName).ThenBy(x => x.paramCount).ToList();
 
             suggestorString.Clear();
 
             for (int i = 0; i < suggestorList.Count; i++)
             {
                 suggestorString.Append(suggestorList[i].commandName);
+
                 
                 if (i != suggestorList.Count)
                 {
