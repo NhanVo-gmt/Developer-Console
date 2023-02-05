@@ -5,7 +5,17 @@
   <summary>Table of contents </summary>
   <ol>
     <li>
-      <a href = "#about-the-project"> 1. About the project </a>
+      <a href = "#about-the-project"> About the project </a>
+    </li>
+    <li>
+      <a href = "#getting-started"> Getting started </a>
+      <ul>
+        <li><a href = "#prerequisites"> Prerequisites </a></li>
+        <li><a href = "#installation"> Installation </a></li>
+      </ul>
+    </li>
+    <li>
+      <a href = "#usage"> Usage </a>
     </li>
   </ol>
 </details>
