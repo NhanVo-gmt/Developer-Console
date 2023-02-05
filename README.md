@@ -14,7 +14,7 @@
 ### Usage
   Drag the game object **Console** in your project. Then whenever you want to use the Console, just enter **`** and type in the command.
   
-  For adding command
+  For adding command:
   > Use [command] on your desired method or parameter, then the command will appear in your Console.
 
 
