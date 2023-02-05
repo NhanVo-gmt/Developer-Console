@@ -38,32 +38,9 @@
   For adding command:
   > Use [command] on your desired method or parameter, then the command will appear in your Console.
 
-a  
-a  
-a  
-a  a  
-a  
-a  
-a  
-a  
-a  
-a  
-a  
-a  
-a  
-a  
-a  
-a  
-a  
-a  
-a  
 
 
-
-
-
-
-
+<!-- Markdown link -->
 [project-link]: https://www.facebook.com
 [console-image]: https://i.guim.co.uk/img/media/4a7234767dfb1fc2824acaa9cc82ace685500ea3/10_0_1180_708/master/1180.jpg?width=700&quality=85&auto=format&fit=max&s=bc7596412f652c1e36ca10476c78cbb9
 
