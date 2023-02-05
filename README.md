@@ -1,7 +1,12 @@
 # Developer Console
-## About the project
 ![Console-image][console-image]
 
+<details> 
+  <summary>Table of contents </summary>
+  <p> 1. Getting started </p>
+</details>
+
+## About the project
   This is a useful console for executing method or paramter faster. Reducing time for debugging, executing and the whole project.
 
 ## Getting started
