@@ -3,7 +3,11 @@
 
 <details> 
   <summary>Table of contents </summary>
-  <p> 1. Getting started </p>
+  <ol>
+    <li>
+      <a href = "#about-the-project"> 1. About the project </a>
+    </li>
+  </ol>
 </details>
 
 ## About the project
@@ -18,7 +22,7 @@
  2. Unzip the file
  3. Drag the unity package to your desired project.
 
-### Usage
+## Usage
   Drag the game object **Console** in your project. Then whenever you want to use the Console, just enter **`** and type in the command.
   
   For adding command:
