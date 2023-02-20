@@ -79,8 +79,7 @@ namespace Console.Processor
     
         public static void InvokeCommand(string commandString) 
         {
-            commandString.SplitScope(' ');
-            string[] commandParts = GetCommandParts(commandString);
+            string[] commandParts = commandString.SplitScope(' ');
 
             string commandName = GetCommandName(commandParts);
             string[] commandParams = GetCommandParams(commandParts, out int paramCount);
@@ -105,11 +104,6 @@ namespace Console.Processor
             }
 
             return parsedParam;
-        }
-
-        public static string[] GetCommandParts(string commandString) 
-        {
-            return commandString.Split(" ").Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
         }
 
         public static string GetCommandName(string[] commandParts) 

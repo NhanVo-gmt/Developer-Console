@@ -38,7 +38,7 @@ namespace Console.Suggestor
             {
                 suggestionString.Append($"<link={i}>");
                 suggestionString.Append($"{suggestions[i].PrimarySignature}");
-                suggestionString.AppendColoredText(suggestions[i].SecondarySignature, ColorExtention.Grey);
+                suggestionString.AppendColoredText(suggestions[i].SecondarySignature, Color.gray);
                 suggestionString.Append("</link>");
                 suggestionString.Append("\n");
             }

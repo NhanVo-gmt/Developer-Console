@@ -26,13 +26,25 @@ namespace Console
         string currentInput;
 
         
+        ConsoleLog consoleLog;
+        [SerializeField] private TextMeshProUGUI logText;
+
+
         private void OnEnable() {
             ConsoleProcessor.GenerateCommandTable();
+            consoleLog = new ConsoleLog(logText);
+
+            Application.logMessageReceived += LogCaughtException;
         }
 
         void Update() 
         {
             ProcessInput();
+
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                InvokeCommand();
+            }
         }
 
         private void ProcessInput()
@@ -54,6 +66,8 @@ namespace Console
         {
             UpdateSuggestion(input);
         }
+
+    #region Suggestion
         
         private void UpdateSuggestion(string input)
         {
@@ -66,22 +80,42 @@ namespace Console
             popupText.text = commandText;
         }
 
-
-        #region Button
-
-        public void InvokeCommand()
-        {
-            ConsoleProcessor.InvokeCommand(inputField.text.Trim());
-            inputField.text = string.Empty;
-        }
-
         public void ClearSuggestionDisplay()
         {
             popupGameObject.SetActive(false);
             popupText.text = string.Empty;
         }
 
+    #endregion
 
-        #endregion
+    #region Button
+
+        public void InvokeCommand()
+        {
+            string inputText = inputField.text.Trim();
+            
+            UpdateLog(inputText);
+            
+            ConsoleProcessor.InvokeCommand(inputText);
+            inputField.text = string.Empty;
+        }
+
+        
+    #endregion
+
+    #region Log
+
+        public void UpdateLog(string text)
+        {
+            consoleLog.UpdateLog(text);
+        }
+
+        private void LogCaughtException(string condition, string stackTrace, LogType type)
+        {
+            consoleLog.UpdateLog(condition, ConsoleLog.Type.Error);
+        }
+
+    #endregion
+
     }
 }
